@@ -1,0 +1,28 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, 64px);
+  grid-template-rows: repeat(6, 64px);
+  background-color: rgb(125, 223, 236);
+  padding: 4px;
+}
+
+.tile {
+  width: 64px;
+  height: 64px;
+  background-size: cover;
+  position: relative;
+}
+
+.robot img {
+  width: 46px;
+  height: 46px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.tile.activated-circuit {
+  border: 3px solid #00ff00;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px #00ff00;
+}

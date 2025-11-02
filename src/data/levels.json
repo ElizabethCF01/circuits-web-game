@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "name": "First Steps",
+    "description": "Learn to move and activate your first circuit",
+    "grid": [
+      ["block-01", "block-01", "block-01", "block-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "block-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "block-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "circuit-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "block-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "block-01", "block-01", "block-01"]
+    ],
+    "startPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "requiredCircuits": 1,
+    "maxCommands": 10
+  },
+  {
+    "id": 2,
+    "name": "Navigate Around",
+    "description": "Avoid obstacles and activate two circuits",
+    "grid": [
+      ["block-01", "block-01", "block-01", "block-01", "block-01", "block-01"],
+      ["block-01", "obstacle-01", "block-01", "circuit-01", "block-01", "block-01"],
+      ["block-01", "obstacle-01", "block-01", "block-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "obstacle-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "obstacle-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "circuit-02", "block-01", "block-01"]
+    ],
+    "startPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "requiredCircuits": 2,
+    "maxCommands": 20
+  },
+  {
+    "id": 3,
+    "name": "The Maze",
+    "description": "Find your way through obstacles to activate all circuits",
+    "grid": [
+      ["block-01", "block-01", "block-01", "block-01", "block-01", "circuit-01"],
+      ["block-01", "obstacle-01", "obstacle-01", "obstacle-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "obstacle-01", "block-01", "block-01"],
+      ["block-01", "circuit-02", "block-01", "obstacle-01", "block-01", "block-01"],
+      ["block-01", "obstacle-01", "block-01", "block-01", "block-01", "block-01"],
+      ["block-01", "block-01", "block-01", "obstacle-01", "obstacle-01", "circuit-01"]
+    ],
+    "startPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "requiredCircuits": 3,
+    "maxCommands": 30
+  }
+]
