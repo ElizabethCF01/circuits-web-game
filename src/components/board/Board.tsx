@@ -1,5 +1,6 @@
 import { tileMap } from "../../game/tileMap";
 import type { BoardGrid, Position } from "../../types";
+import { robot } from "../../assets/images";
 import "./Board.css";
 
 interface BoardProps {
@@ -32,7 +33,7 @@ export default function Board({
               {robotPosition.x === rIndex && robotPosition.y === cIndex && (
                 <div className="robot">
                   <img
-                    src="/src/assets/robot/robot.png"
+                    src={robot.image}
                     alt="robot"
                     draggable="false"
                   />

@@ -5,6 +5,7 @@ import InfoPanel from "./components/InfoPanel";
 import { useGameLogic } from "./game/useGameLogic";
 import { useLevelManager } from "./game/useLevelManager";
 import type { Command } from "./types";
+import { icons } from "./assets/images";
 import "./App.css";
 
 export default function App() {
@@ -110,7 +111,7 @@ export default function App() {
         title="How to Play"
       >
         <img
-          src="/src/assets/icons/info.svg"
+          src={icons.info}
           alt="Info"
           width={32}
           height={32}
@@ -156,21 +157,21 @@ export default function App() {
           onClick={handleExecute}
           className="execute-button"
         >
-          Play <img src="/src/assets/icons/play.svg" width={24} />
+          Play <img src={icons.play} width={24} />
         </button>
         <button
           ref={resetButtonRef}
           onClick={handleReset}
           className="execute-button"
         >
-          Reset <img src="/src/assets/icons/reset.svg" width={24} />
+          Reset <img src={icons.reset} width={24} />
         </button>
         {gameStatus === "won" && hasNextLevel && (
           <button
             onClick={handleNextLevel}
             className="execute-button next-level-button"
           >
-            Next Level <img src="/src/assets/icons/next.svg" width={24} />
+            Next Level <img src={icons.next} width={24} />
           </button>
         )}
       </div>

@@ -1,4 +1,5 @@
 import type { Command } from "../types";
+import { controls } from "../assets/images";
 import "./CommandPanel.css";
 
 interface CommandItem {
@@ -8,11 +9,11 @@ interface CommandItem {
 
 export default function CommandPanel() {
   const commands: CommandItem[] = [
-    { command: "UP", icon: "/src/assets/controls/up.svg" },
-    { command: "LEFT", icon: "/src/assets/controls/left.svg" },
-    { command: "DOWN", icon: "/src/assets/controls/down.svg" },
-    { command: "RIGHT", icon: "/src/assets/controls/right.svg" },
-    { command: "ACTIVATE_CIRCUIT", icon: "/src/assets/controls/active-circuit.svg" },
+    { command: "UP", icon: controls.up },
+    { command: "LEFT", icon: controls.left },
+    { command: "DOWN", icon: controls.down },
+    { command: "RIGHT", icon: controls.right },
+    { command: "ACTIVATE_CIRCUIT", icon: controls.activeCircuit },
   ];
 
   const handleDragStart = (e: React.DragEvent, command: Command) => {

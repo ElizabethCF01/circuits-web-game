@@ -1,9 +1,10 @@
 import type { TileMap } from "../types";
+import { tiles } from "../assets/images";
 
 export const tileMap: TileMap = {
-  "circuit-01": "/src/assets/tiles/circuit-01.png",
-  "circuit-02": "/src/assets/tiles/circuit-02.png",
-  "block-01": "/src/assets/tiles/block-01.png",
-  "block-02": "/src/assets/tiles/block-02.png",
-  "obstacle-01": "/src/assets/tiles/obstacle-01.png",
+  "circuit-01": tiles.circuit01,
+  "circuit-02": tiles.circuit02,
+  "block-01": tiles.block01,
+  "block-02": tiles.block02,
+  "obstacle-01": tiles.obstacle01,
 };
