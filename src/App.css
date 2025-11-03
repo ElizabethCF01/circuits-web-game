@@ -215,6 +215,32 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.execute-button:hover {
+  transform: scale(1.1);
+}
+
+.execute-button:active {
+  transform: scale(0.95);
+}
+
+.execute-button.pressed {
+  animation: buttonPress 0.2s ease;
+}
+
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .next-level-button {

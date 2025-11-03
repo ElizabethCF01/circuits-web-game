@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import Board from "./components/board/Board";
 import ProgramGrid from "./components/ProgramGrid";
 import InfoPanel from "./components/InfoPanel";
@@ -32,6 +32,8 @@ export default function App() {
     "playing"
   );
   const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const playButtonRef = useRef<HTMLButtonElement>(null);
+  const resetButtonRef = useRef<HTMLButtonElement>(null);
 
   // Find all circuit tiles on the board
   const getAllCircuitPositions = (): Set<string> => {
@@ -47,8 +49,19 @@ export default function App() {
   };
 
   const handleExecute = async () => {
+    if (playButtonRef.current) {
+      playButtonRef.current.classList.add("pressed");
+      setTimeout(() => {
+        playButtonRef.current?.classList.remove("pressed");
+      }, 300);
+    }
+
     setGameStatus("playing");
     const activatedSet = await execute(currentLevel.grid);
+
+    if (activatedSet === null) {
+      return;
+    }
 
     // Check if all circuits are activated
     const allCircuits = getAllCircuitPositions();
@@ -65,6 +78,13 @@ export default function App() {
   };
 
   const handleReset = () => {
+    if (resetButtonRef.current) {
+      resetButtonRef.current.classList.add("pressed");
+      setTimeout(() => {
+        resetButtonRef.current?.classList.remove("pressed");
+      }, 300);
+    }
+
     reset();
     setGameStatus("playing");
   };
@@ -131,10 +151,18 @@ export default function App() {
       </div>
 
       <div className="button-container">
-        <button onClick={handleExecute} className="execute-button">
+        <button
+          ref={playButtonRef}
+          onClick={handleExecute}
+          className="execute-button"
+        >
           Play <img src="/src/assets/icons/play.svg" width={24} />
         </button>
-        <button onClick={handleReset} className="execute-button">
+        <button
+          ref={resetButtonRef}
+          onClick={handleReset}
+          className="execute-button"
+        >
           Reset <img src="/src/assets/icons/reset.svg" width={24} />
         </button>
         {gameStatus === "won" && hasNextLevel && (

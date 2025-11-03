@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Command, Position, BoardGrid } from "../types";
 
 interface UseGameLogicReturn {
@@ -6,7 +6,7 @@ interface UseGameLogicReturn {
   commands: Command[];
   activatedCircuits: Set<string>;
   setCommands: (cmds: Command[]) => void;
-  execute: (board: BoardGrid) => Promise<Set<string>>;
+  execute: (board: BoardGrid) => Promise<Set<string> | null>;
   reset: () => void;
 }
 
@@ -24,17 +24,28 @@ export function useGameLogic({
   const [activatedCircuits, setActivatedCircuits] = useState<Set<string>>(
     new Set()
   );
+  const abortExecutionRef = useRef(false);
 
   useEffect(() => {
     setRobotPos(startPosition);
   }, [startPosition]);
 
-  const execute = async (board: BoardGrid): Promise<Set<string>> => {
-    let currentPos = { ...robotPos };
+  const execute = async (board: BoardGrid): Promise<Set<string> | null> => {
+    abortExecutionRef.current = false;
+
+    setRobotPos(startPosition);
+    setActivatedCircuits(new Set());
+
+    let currentPos = { ...startPosition };
     const newActivatedCircuits = new Set<string>();
 
     for (const cmd of commands) {
       await new Promise((res) => setTimeout(res, 400));
+
+      // Check if execution was cancelled
+      if (abortExecutionRef.current) {
+        return null;
+      }
 
       if (cmd === "ACTIVATE_CIRCUIT") {
         // Check if robot is on a circuit tile
@@ -70,8 +81,8 @@ export function useGameLogic({
   };
 
   const reset = (): void => {
+    abortExecutionRef.current = true;
     setRobotPos(startPosition);
-    setCommands([]);
     setActivatedCircuits(new Set());
   };
 
