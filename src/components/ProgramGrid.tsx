@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Command } from "../types";
 import CommandPanel from "./CommandPanel";
+import { controls } from "../assets/images";
 import "./ProgramGrid.css";
 
 interface ProgramGridProps {
@@ -64,11 +65,11 @@ export default function ProgramGrid({
 
   const getCommandIcon = (command: Command): string => {
     const iconMap: Record<Command, string> = {
-      UP: "/src/assets/controls/up.svg",
-      DOWN: "/src/assets/controls/down.svg",
-      LEFT: "/src/assets/controls/left.svg",
-      RIGHT: "/src/assets/controls/right.svg",
-      ACTIVATE_CIRCUIT: "/src/assets/controls/active-circuit.svg",
+      UP: controls.up,
+      DOWN: controls.down,
+      LEFT: controls.left,
+      RIGHT: controls.right,
+      ACTIVATE_CIRCUIT: controls.activeCircuit,
     };
     return iconMap[command];
   };
