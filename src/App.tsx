@@ -1,14 +1,20 @@
 import { useState, useCallback, useRef } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Board from "./components/board/Board";
 import ProgramGrid from "./components/ProgramGrid";
 import InfoPanel from "./components/InfoPanel";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import { useGameLogic } from "./game/useGameLogic";
 import { useLevelManager } from "./game/useLevelManager";
+import { useAuth } from "./context/AuthContext";
 import type { Command } from "./types";
 import { icons } from "./assets/images";
 import "./App.css";
 
-export default function App() {
+function GamePage() {
+  const { user, logout } = useAuth();
   const {
     currentLevel,
     currentLevelIndex,
@@ -103,20 +109,27 @@ export default function App() {
     [setCommands]
   );
 
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <div className="app-container">
-      <button
-        className="info-button"
-        onClick={() => setIsInfoOpen(true)}
-        title="How to Play"
-      >
-        <img
-          src={icons.info}
-          alt="Info"
-          width={32}
-          height={32}
-        />
-      </button>
+      <div className="top-bar">
+        <span className="user-greeting">Hi, {user?.name}</span>
+        <div className="top-bar-actions">
+          <button
+            className="info-button"
+            onClick={() => setIsInfoOpen(true)}
+            title="How to Play"
+          >
+            <img src={icons.info} alt="Info" width={32} height={32} />
+          </button>
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      </div>
 
       <InfoPanel isOpen={isInfoOpen} onClose={() => setIsInfoOpen(false)} />
 
@@ -189,5 +202,23 @@ export default function App() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <GamePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
