@@ -6,15 +6,18 @@ import InfoPanel from "./components/InfoPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import CreatePlayerPage from "./pages/CreatePlayerPage";
 import { useGameLogic } from "./game/useGameLogic";
 import { useLevelManager } from "./game/useLevelManager";
 import { useAuth } from "./context/AuthContext";
+import { usePlayer } from "./context/PlayerContext";
 import type { Command } from "./types";
 import { icons } from "./assets/images";
 import "./App.css";
 
 function GamePage() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+  const { player } = usePlayer();
   const {
     currentLevel,
     currentLevelIndex,
@@ -116,7 +119,7 @@ function GamePage() {
   return (
     <div className="app-container">
       <div className="top-bar">
-        <span className="user-greeting">Hi, {user?.name}</span>
+        <span className="user-greeting">Hi, {player?.nickname} | XP: {player?.xp ?? 0}</span>
         <div className="top-bar-actions">
           <button
             className="info-button"
@@ -211,9 +214,17 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route
-        path="/"
+        path="/create-player"
         element={
           <ProtectedRoute>
+            <CreatePlayerPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute requirePlayer>
             <GamePage />
           </ProtectedRoute>
         }
