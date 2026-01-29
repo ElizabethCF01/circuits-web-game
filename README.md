@@ -10,7 +10,7 @@ The game has a robot that moves around a grid board with different tiles. Your g
 
 **The Robot:**
 
-![Robot](src/assets/robot/robot.png)
+![Robot](src/assets/robot/robot-idle.gif)
 
 The robot starts at a specific position and follows your programmed commands.
 
