@@ -32,7 +32,7 @@ interface PlayerContextType {
 const PlayerContext = createContext<PlayerContextType | null>(null);
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isNewRegistration } = useAuth();
   const storedPlayer = loadStoredPlayer();
   const [player, setPlayer] = useState<Player | null>(
     isAuthenticated ? storedPlayer : null
@@ -57,13 +57,17 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      fetchPlayer();
+      if (!isNewRegistration) {
+        fetchPlayer();
+      } else {
+        setIsLoading(false);
+      }
     } else {
       localStorage.removeItem(PLAYER_KEY);
       setPlayer(null);
       setIsLoading(false);
     }
-  }, [isAuthenticated, fetchPlayer]);
+  }, [isAuthenticated, isNewRegistration, fetchPlayer]);
 
   const refreshPlayer = useCallback(async () => {
     await fetchPlayer(true);

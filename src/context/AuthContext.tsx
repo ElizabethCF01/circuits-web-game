@@ -19,6 +19,7 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  isNewRegistration: boolean;
   login: (credentials: LoginCredentials) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => Promise<void>;
@@ -31,6 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const hasToken = !!localStorage.getItem(TOKEN_KEY);
   const [user, setUser] = useState<User | null>(storedUser);
   const [isLoading, setIsLoading] = useState(hasToken && !storedUser);
+  const [isNewRegistration, setIsNewRegistration] = useState(false);
 
   useEffect(() => {
     if (!hasToken) {
@@ -65,6 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const response = await authService.register(data);
     localStorage.setItem(TOKEN_KEY, response.token);
     localStorage.setItem(USER_KEY, JSON.stringify(response.user));
+    setIsNewRegistration(true);
     setUser(response.user);
   }, []);
 
@@ -84,6 +87,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         isAuthenticated: !!user,
         isLoading,
+        isNewRegistration,
         login,
         register,
         logout,
