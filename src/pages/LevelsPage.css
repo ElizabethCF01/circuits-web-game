@@ -98,6 +98,34 @@
   text-transform: uppercase;
 }
 
+.level-card--completed {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.04);
+}
+
+.level-card--completed:hover {
+  border-color: #388e3c;
+}
+
+.level-card-badge {
+  font-size: 8px;
+  color: #fff;
+  background: #4caf50;
+  padding: 3px 8px;
+  align-self: flex-start;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.level-card-score {
+  display: flex;
+  gap: 12px;
+  font-size: 9px;
+  color: #4caf50;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 8px;
+}
+
 .levels-pagination {
   display: flex;
   justify-content: center;

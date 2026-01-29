@@ -111,9 +111,12 @@ export default function LevelsPage() {
             {levels.map((level) => (
               <button
                 key={level.id}
-                className="level-card"
+                className={`level-card${level.played ? " level-card--completed" : ""}`}
                 onClick={() => navigate(`/play/${level.id}`)}
               >
+                {level.played && (
+                  <span className="level-card-badge">Completed</span>
+                )}
                 <h3 className="level-card-name">{level.name}</h3>
                 <p className="level-card-desc">{level.description}</p>
                 <div className="level-card-meta">
@@ -128,6 +131,12 @@ export default function LevelsPage() {
                   </span>
                   <span>{level.required_circuits} circuits</span>
                 </div>
+                {level.score && (
+                  <div className="level-card-score">
+                    <span>XP: {level.score.xp_earned}</span>
+                    <span>Commands: {level.score.commands_used}/{level.max_commands}</span>
+                  </div>
+                )}
               </button>
             ))}
           </div>

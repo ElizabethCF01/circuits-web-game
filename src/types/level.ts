@@ -1,5 +1,11 @@
 // --- Level browsing & playing ---
 
+export interface ApiLevelScore {
+  xp_earned: number;
+  commands_used: number;
+  completed_at: string;
+}
+
 export interface ApiLevelSummary {
   id: number;
   name: string;
@@ -9,6 +15,8 @@ export interface ApiLevelSummary {
   max_commands: number;
   grid_width: number;
   grid_height: number;
+  played: boolean;
+  score: ApiLevelScore | null;
 }
 
 export interface ApiLevelTile {
