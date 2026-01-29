@@ -289,30 +289,139 @@
   width: 100%;
 }
 
-.victory-message,
 .defeat-message {
   font-size: 20px;
   font-weight: bold;
   margin-top: 20px;
   text-align: center;
+  color: red;
 }
 
-.victory-message {
-  color: green;
+/* Level completion overlay */
+.completion-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
 }
 
-.completion-details {
-  font-size: 14px;
-  margin-top: 10px;
+.completion-panel {
+  background: white;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  overflow: hidden;
+}
+
+.completion-header {
+  padding: 20px 24px;
+  background: #4caf50;
+  color: white;
+  text-align: center;
+}
+
+.completion-header h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.completion-header .completion-subtitle {
+  margin: 8px 0 0;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.completion-body {
+  padding: 24px;
+}
+
+.completion-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.completion-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #333;
+}
+
+.completion-stat-row .stat-label {
+  color: #666;
+}
+
+.completion-stat-row .stat-value {
+  font-weight: bold;
   color: #127573;
 }
 
-.completion-details p {
-  margin: 4px 0;
+.completion-stat-row .stat-value.xp-highlight {
+  color: #4caf50;
+  font-size: 15px;
 }
 
-.defeat-message {
-  color: red;
+.completion-badges {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.completion-badge {
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.completion-badge.first-clear {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffcc80;
+}
+
+.completion-badge.improved {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+.completion-divider {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 16px 0;
+}
+
+.completion-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.completion-actions .execute-button {
+  font-size: 12px;
+  padding: 8px 16px;
+}
+
+.completion-submitting {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 13px;
+  color: #888;
 }
 
 @media (min-width: 1024px) {

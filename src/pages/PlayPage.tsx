@@ -232,23 +232,111 @@ export default function PlayPage() {
       </div>
 
       {gameStatus === "won" && (
-        <div className="victory-message">
-          Victory! All circuits activated!
-          {isSubmitting && " Submitting score..."}
-          {completionResult && (
-            <div className="completion-details">
-              <p>{completionResult.message}</p>
-              {completionResult.xp_earned != null && (
-                <p>+{completionResult.xp_earned} XP</p>
+        <div className="completion-overlay">
+          <div className="completion-panel">
+            <div className="completion-header">
+              <h3>Level Complete!</h3>
+              {completionResult && (
+                <p className="completion-subtitle">
+                  {completionResult.message}
+                </p>
               )}
             </div>
-          )}
+            <div className="completion-body">
+              {isSubmitting && (
+                <div className="completion-submitting">
+                  Submitting score...
+                </div>
+              )}
+              {completionResult && (
+                <>
+                  <div className="completion-stats">
+                    <div className="completion-stat-row">
+                      <span className="stat-label">Commands used</span>
+                      <span className="stat-value">
+                        {completionResult.commands_used}
+                        {level?.max_commands != null &&
+                          ` / ${level.max_commands}`}
+                      </span>
+                    </div>
+                    {completionResult.base_xp != null && (
+                      <div className="completion-stat-row">
+                        <span className="stat-label">Base XP</span>
+                        <span className="stat-value">
+                          +{completionResult.base_xp}
+                        </span>
+                      </div>
+                    )}
+                    {completionResult.efficiency_bonus != null &&
+                      completionResult.efficiency_bonus > 0 && (
+                        <div className="completion-stat-row">
+                          <span className="stat-label">Efficiency bonus</span>
+                          <span className="stat-value">
+                            +{completionResult.efficiency_bonus}
+                          </span>
+                        </div>
+                      )}
+                    {completionResult.xp_earned != null && (
+                      <>
+                        <hr className="completion-divider" />
+                        <div className="completion-stat-row">
+                          <span className="stat-label">Total XP earned</span>
+                          <span className="stat-value xp-highlight">
+                            +{completionResult.xp_earned}
+                          </span>
+                        </div>
+                      </>
+                    )}
+                    {completionResult.best_commands != null && (
+                      <div className="completion-stat-row">
+                        <span className="stat-label">Best score</span>
+                        <span className="stat-value">
+                          {completionResult.best_commands} commands
+                        </span>
+                      </div>
+                    )}
+                    {completionResult.player_total_xp != null && (
+                      <div className="completion-stat-row">
+                        <span className="stat-label">Your total XP</span>
+                        <span className="stat-value">
+                          {completionResult.player_total_xp}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="completion-badges">
+                    {completionResult.first_completion && (
+                      <span className="completion-badge first-clear">
+                        First Clear!
+                      </span>
+                    )}
+                    {completionResult.improved && (
+                      <span className="completion-badge improved">
+                        New Record!
+                      </span>
+                    )}
+                  </div>
+                </>
+              )}
+              <div className="completion-actions">
+                <button className="execute-button" onClick={handleReset}>
+                  Play Again
+                </button>
+                <button
+                  className="execute-button"
+                  onClick={() => navigate("/")}
+                >
+                  Back to Levels
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
       {gameStatus === "lost" && (
         <div className="defeat-message">
-          Game Over! Some circuits remain inactive.
+          Some circuits remain inactive. Try again!
         </div>
       )}
     </div>

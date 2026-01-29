@@ -41,8 +41,8 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     isAuthenticated && !storedPlayer
   );
 
-  const fetchPlayer = useCallback(async () => {
-    setIsLoading(true);
+  const fetchPlayer = useCallback(async (silent = false) => {
+    if (!silent) setIsLoading(true);
     try {
       const data = await playerService.getPlayer();
       localStorage.setItem(PLAYER_KEY, JSON.stringify(data));
@@ -51,7 +51,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       localStorage.removeItem(PLAYER_KEY);
       setPlayer(null);
     } finally {
-      setIsLoading(false);
+      if (!silent) setIsLoading(false);
     }
   }, []);
 
@@ -64,6 +64,10 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       setIsLoading(false);
     }
   }, [isAuthenticated, fetchPlayer]);
+
+  const refreshPlayer = useCallback(async () => {
+    await fetchPlayer(true);
+  }, [fetchPlayer]);
 
   const createPlayer = useCallback(async (nickname: string) => {
     const data = await playerService.createPlayer(nickname);
@@ -78,7 +82,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
         isLoading,
         hasPlayer: !!player,
         createPlayer,
-        refreshPlayer: fetchPlayer,
+        refreshPlayer,
       }}
     >
       {children}

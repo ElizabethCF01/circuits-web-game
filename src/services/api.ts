@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://circuitsapi.elizabethcafe.site/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 const TOKEN_KEY = "auth_token";
 
 const api = axios.create({
@@ -28,7 +28,7 @@ api.interceptors.response.use(
         import.meta.env.BASE_URL?.replace(/\/$/, "") + "/login";
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export { TOKEN_KEY };
