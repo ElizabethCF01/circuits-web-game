@@ -4,6 +4,17 @@ import type { User, LoginCredentials, RegisterData } from "../types/auth";
 import * as authService from "../services/auth";
 import { TOKEN_KEY } from "../services/api";
 
+const USER_KEY = "auth_user";
+
+function loadStoredUser(): User | null {
+  try {
+    const raw = localStorage.getItem(USER_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
@@ -16,33 +27,44 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const storedUser = loadStoredUser();
+  const hasToken = !!localStorage.getItem(TOKEN_KEY);
+  const [user, setUser] = useState<User | null>(storedUser);
+  const [isLoading, setIsLoading] = useState(hasToken && !storedUser);
 
   useEffect(() => {
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
-      authService
-        .getUser()
-        .then(setUser)
-        .catch(() => {
-          localStorage.removeItem(TOKEN_KEY);
-        })
-        .finally(() => setIsLoading(false));
-    } else {
+    if (!hasToken) {
+      localStorage.removeItem(USER_KEY);
+      setUser(null);
       setIsLoading(false);
+      return;
     }
-  }, []);
+
+    authService
+      .getUser()
+      .then((freshUser) => {
+        localStorage.setItem(USER_KEY, JSON.stringify(freshUser));
+        setUser(freshUser);
+      })
+      .catch(() => {
+        localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem(USER_KEY);
+        setUser(null);
+      })
+      .finally(() => setIsLoading(false));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const login = useCallback(async (credentials: LoginCredentials) => {
     const response = await authService.login(credentials);
     localStorage.setItem(TOKEN_KEY, response.token);
+    localStorage.setItem(USER_KEY, JSON.stringify(response.user));
     setUser(response.user);
   }, []);
 
   const register = useCallback(async (data: RegisterData) => {
     const response = await authService.register(data);
     localStorage.setItem(TOKEN_KEY, response.token);
+    localStorage.setItem(USER_KEY, JSON.stringify(response.user));
     setUser(response.user);
   }, []);
 
@@ -51,6 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await authService.logout();
     } finally {
       localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
       setUser(null);
     }
   }, []);

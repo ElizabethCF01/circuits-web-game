@@ -324,7 +324,15 @@
   }
 
   .controls-container {
+    max-width: 500px;
     position: sticky;
     top: 20px;
+  }
+
+  .level-header,
+  .button-container,
+  .victory-message,
+  .defeat-message {
+    text-align: center;
   }
 }

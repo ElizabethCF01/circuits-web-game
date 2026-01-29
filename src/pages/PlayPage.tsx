@@ -220,7 +220,7 @@ export default function PlayPage() {
           onClick={handleExecute}
           className="execute-button"
         >
-          Play <img src={icons.play} width={24} />
+          Run <img src={icons.play} width={24} />
         </button>
         <button
           ref={resetButtonRef}
