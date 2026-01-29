@@ -50,7 +50,7 @@ export function useGameLogic({
       if (cmd === "ACTIVATE_CIRCUIT") {
         // Check if robot is on a circuit tile
         const currentTile = board[currentPos.x][currentPos.y];
-        if (currentTile === "circuit-01" || currentTile === "circuit-02") {
+        if (currentTile.startsWith("circuit")) {
           const key = `${currentPos.x}-${currentPos.y}`;
           newActivatedCircuits.add(key);
           setActivatedCircuits((prev) => {
@@ -68,7 +68,9 @@ export function useGameLogic({
 
         // Check if the new position is valid
         const newTile = board[x][y];
-        if (newTile !== "obstacle-01") {
+        const isObstacle =
+          newTile.startsWith("obstacle") || newTile === "wall";
+        if (!isObstacle) {
           currentPos = { x, y };
 
           // Update position

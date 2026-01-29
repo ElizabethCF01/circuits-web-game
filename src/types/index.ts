@@ -1,11 +1,6 @@
 export type Command = "UP" | "DOWN" | "LEFT" | "RIGHT" | "ACTIVATE_CIRCUIT";
 
-export type TileType =
-  | "circuit-01"
-  | "circuit-02"
-  | "block-01"
-  | "block-02"
-  | "obstacle-01";
+export type TileType = string;
 
 export interface Position {
   x: number;
@@ -28,5 +23,4 @@ export interface CommandPanelProps {
   onAddCommand: (command: Command) => void;
 }
 
-// Tile map type
-export type TileMap = Record<TileType, string>;
+export type TileMap = Record<string, string>;

@@ -1,4 +1,4 @@
-import { tileMap } from "../../game/tileMap";
+import { useTiles } from "../../context/TileContext";
 import type { BoardGrid, Position } from "../../types";
 import { robot } from "../../assets/images";
 import "./Board.css";
@@ -14,12 +14,19 @@ export default function Board({
   robotPosition,
   activatedCircuits,
 }: BoardProps) {
+  const { tileMap } = useTiles();
+
+  const columns = board[0]?.length || 0;
+
   return (
-    <div className="board">
+    <div
+      className="board"
+      style={{ gridTemplateColumns: `repeat(${columns}, 64px)` }}
+    >
       {board.map((row, rIndex) =>
         row.map((cell, cIndex) => {
           const tileSrc = tileMap[cell];
-          const isCircuitTile = cell === "circuit-01" || cell === "circuit-02";
+          const isCircuitTile = cell.startsWith("circuit");
           const isActivated = activatedCircuits.has(`${rIndex}-${cIndex}`);
 
           return (

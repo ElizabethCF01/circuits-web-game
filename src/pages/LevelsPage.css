@@ -1,0 +1,133 @@
+.levels-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.levels-header h2 {
+  margin-bottom: 16px;
+}
+
+.levels-filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-family: "Press Start 2P", system-ui;
+  font-size: 10px;
+  padding: 6px 14px;
+  background: none;
+  border: 2px solid #ccc;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn.active {
+  border-color: #127573;
+  color: #127573;
+  background: rgba(18, 117, 115, 0.08);
+}
+
+.filter-btn:hover:not(.active) {
+  border-color: #999;
+  color: #333;
+}
+
+.levels-status {
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-top: 40px;
+}
+
+.levels-error {
+  color: #c00;
+}
+
+.levels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.level-card {
+  font-family: "Press Start 2P", system-ui;
+  background: #fff;
+  border: 2px solid #ccc;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.level-card:hover {
+  border-color: #127573;
+  transform: translateY(-2px);
+}
+
+.level-card-name {
+  font-size: 13px;
+  color: #127573;
+  margin: 0;
+}
+
+.level-card-desc {
+  font-size: 10px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.level-card-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 9px;
+  color: #999;
+  flex-wrap: wrap;
+}
+
+.level-card-difficulty {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.levels-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.page-btn {
+  font-family: "Press Start 2P", system-ui;
+  font-size: 11px;
+  padding: 8px 16px;
+  background: none;
+  border: 2px solid #127573;
+  color: #127573;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #127573;
+  color: #fff;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 12px;
+  color: #666;
+}

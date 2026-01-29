@@ -301,6 +301,16 @@
   color: green;
 }
 
+.completion-details {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #127573;
+}
+
+.completion-details p {
+  margin: 4px 0;
+}
+
 .defeat-message {
   color: red;
 }
