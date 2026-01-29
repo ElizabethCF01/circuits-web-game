@@ -6,6 +6,8 @@ import nextIcon from './icons/next.svg';
 
 // Robot
 import robotImage from './robot/robot.png';
+import robotIdle from './robot/robot-idle.gif';
+import robotWalk from './robot/robot-walk.gif';
 
 // Tiles
 import block01 from './tiles/block-01.png';
@@ -30,6 +32,8 @@ export const icons = {
 
 export const robot = {
   image: robotImage,
+  idle: robotIdle,
+  walk: robotWalk,
 };
 
 export const tiles = {

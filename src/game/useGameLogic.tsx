@@ -5,6 +5,7 @@ interface UseGameLogicReturn {
   robotPos: Position;
   commands: Command[];
   activatedCircuits: Set<string>;
+  isWalking: boolean;
   setCommands: (cmds: Command[]) => void;
   execute: (board: BoardGrid) => Promise<Set<string> | null>;
   reset: () => void;
@@ -24,6 +25,7 @@ export function useGameLogic({
   const [activatedCircuits, setActivatedCircuits] = useState<Set<string>>(
     new Set()
   );
+  const [isWalking, setIsWalking] = useState(false);
   const abortExecutionRef = useRef(false);
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export function useGameLogic({
 
     setRobotPos(startPosition);
     setActivatedCircuits(new Set());
+    setIsWalking(true);
 
     let currentPos = { ...startPosition };
     const newActivatedCircuits = new Set<string>();
@@ -79,6 +82,7 @@ export function useGameLogic({
       }
     }
 
+    setIsWalking(false);
     return newActivatedCircuits;
   };
 
@@ -86,12 +90,14 @@ export function useGameLogic({
     abortExecutionRef.current = true;
     setRobotPos(startPosition);
     setActivatedCircuits(new Set());
+    setIsWalking(false);
   };
 
   return {
     robotPos,
     commands,
     activatedCircuits,
+    isWalking,
     setCommands,
     execute,
     reset,

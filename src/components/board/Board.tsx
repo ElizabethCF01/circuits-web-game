@@ -7,12 +7,14 @@ interface BoardProps {
   board: BoardGrid;
   robotPosition: Position;
   activatedCircuits: Set<string>;
+  isWalking: boolean;
 }
 
 export default function Board({
   board,
   robotPosition,
   activatedCircuits,
+  isWalking,
 }: BoardProps) {
   const { tileMap } = useTiles();
 
@@ -40,7 +42,7 @@ export default function Board({
               {robotPosition.x === rIndex && robotPosition.y === cIndex && (
                 <div className="robot">
                   <img
-                    src={robot.image}
+                    src={isWalking ? robot.walk : robot.idle}
                     alt="robot"
                     draggable="false"
                   />

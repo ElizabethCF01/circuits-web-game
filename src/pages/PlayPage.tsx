@@ -61,7 +61,7 @@ export default function PlayPage() {
     [level]
   );
 
-  const { robotPos, activatedCircuits, commands, setCommands, execute, reset } =
+  const { robotPos, activatedCircuits, isWalking, commands, setCommands, execute, reset } =
     useGameLogic({ startPosition, gridSize });
 
   const getAllCircuitPositions = (): Set<string> => {
@@ -203,6 +203,7 @@ export default function PlayPage() {
             board={grid}
             robotPosition={robotPos}
             activatedCircuits={activatedCircuits}
+            isWalking={isWalking}
           />
         </div>
 
